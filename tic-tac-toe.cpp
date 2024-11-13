@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<unordered_map>
+#include<cstdlib>
 
 using namespace std;
 
@@ -79,9 +80,9 @@ int main(){
     int p1_move, p2_move;
 
     vector<char> board = {
-        '*','*','*',
-        '*','*','*',
-        '*','*','*'
+        '.','.','.',
+        '.','.','.',
+        '.','.','.'
     };
 
     game game;
@@ -89,37 +90,38 @@ int main(){
     player2 player2;
 
     cout<<endl;
+    system("cls");
     game.init(board);
 
     for(int i=0; i<9; i++){
         if((i+1)%2!=0){
 
             //p1's turn
-            cout<<"Player 1's turn: ";
+            cout<<"Player 1's turn (O): ";
             cin>>p1_move;
             cout<<endl;
 
             p1_move=game.move_decoder(p1_move);
+            system("cls");
             if(p1_move==-1) {
                 cout<<"Invalid Spot!"<<endl;
                 i--;
             }
-
             player1.update(board,p1_move);
 
         }else{
 
             //p2's turn
-            cout<<"Player 2's turn: ";
+            cout<<"Player 2's turn (X): ";
             cin>>p2_move;
             cout<<endl;
 
             p2_move=game.move_decoder(p2_move);
+            system("cls");
             if(p2_move==-1) {
                 cout<<"Invalid Spot!"<<endl;
                 i--;
             }
-
             player2.update(board,p2_move);
         }
 
