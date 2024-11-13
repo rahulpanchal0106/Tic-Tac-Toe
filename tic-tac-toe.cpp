@@ -23,10 +23,9 @@ class game{
                 {21,7},
                 {22,8}
             };
-
-            cout<<map[move]<<"______"<<endl<<endl;
             
-            if(map.find(move)!=map.end()) return map[move];
+            auto it = map.find(move);
+            if(it != map.end()) return map[move];
 
             return -1;
         }
