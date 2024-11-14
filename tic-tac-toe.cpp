@@ -2,6 +2,7 @@
 #include<vector>
 #include<unordered_map>
 #include<cstdlib>
+#define empty '.'
 
 using namespace std;
 
@@ -11,7 +12,7 @@ class game{
             init(board);
         }
 
-        int move_decoder(int move){
+        int move_decoder(int move, vector<char> &board){
 
             unordered_map <int,int> map={
                 {00,0},
@@ -26,7 +27,7 @@ class game{
             };
             
             auto it = map.find(move);
-            if(it != map.end()) return map[move];
+            if(it != map.end() && board[map[move]]==empty) return map[move];
 
             return -1;
         }
@@ -54,12 +55,37 @@ class game{
             cout<<endl;
             cout<<endl;
         }
+
+        bool check_win(char player,vector<char> &board){
+            int winning_combos[8][3]={
+                {0,3,6},
+                {1,4,7},
+                {2,5,8},
+                {0,1,2},
+                {3,4,5},
+                {6,7,8},
+                {0,4,8},
+                {2,4,6}
+            };
+
+            for(int i=0; i<9; i++){
+                int a=winning_combos[i][0];
+                int b=winning_combos[i][1];
+                int c=winning_combos[i][2];
+
+                if(board[a]==player && board[b]==player && board[c]==player){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        
 };
 
 class player1{
     public:
         vector<char> update(vector<char> &board, int move){
-            
             board[move]='O';
             return board;
         }
@@ -68,7 +94,6 @@ class player1{
 class player2{
     public:
         vector<char> update(vector<char> &board, int move){
-            
             board[move]='X';
             return board;
         }
@@ -101,13 +126,22 @@ int main(){
             cin>>p1_move;
             cout<<endl;
 
-            p1_move=game.move_decoder(p1_move);
+            p1_move=game.move_decoder(p1_move,board);
+
             system("cls");
+            
             if(p1_move==-1) {
-                cout<<"Invalid Spot!"<<endl;
+                cout<<"Invalid Spot!"<<endl<<endl;
                 i--;
             }
             player1.update(board,p1_move);
+            
+            if(game.check_win('O',board)){
+                cout<<"Player 1 Wins!!"<<endl<<endl;
+                game.update(board);
+                return 0;
+            }
+
 
         }else{
 
@@ -116,18 +150,25 @@ int main(){
             cin>>p2_move;
             cout<<endl;
 
-            p2_move=game.move_decoder(p2_move);
+            p2_move=game.move_decoder(p2_move,board);
             system("cls");
             if(p2_move==-1) {
-                cout<<"Invalid Spot!"<<endl;
+                cout<<"Invalid Spot!"<<endl<<endl;
                 i--;
             }
             player2.update(board,p2_move);
+
+            if(game.check_win('X',board)){
+                cout<<"Player 2 Wins!!"<<endl<<endl;
+                game.update(board);
+                return 0;
+            }
+            
         }
 
         game.update(board);
-        
     }
 
+    cout<<"It's a draw -_-"<<endl;
     return 0;
 }
