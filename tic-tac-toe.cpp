@@ -8,6 +8,12 @@ using namespace std;
 
 class game{
     public:
+
+        int restart(bool permission){
+            if(permission) return 0;
+            return 9;
+        }
+
         void update(vector<char>& board){
             init(board);
         }
@@ -61,9 +67,11 @@ class game{
                 {0,3,6},
                 {1,4,7},
                 {2,5,8},
+
                 {0,1,2},
                 {3,4,5},
                 {6,7,8},
+
                 {0,4,8},
                 {2,4,6}
             };
@@ -73,7 +81,9 @@ class game{
                 int b=winning_combos[i][1];
                 int c=winning_combos[i][2];
 
-                if(board[a]==player && board[b]==player && board[c]==player){
+                if(board[a]==player && board[b]==player && board[c]==player &&  a!=b && b!=c && a!=c){
+                    cout<<"--> "<<board[a]<<" "<<board[b]<<" "<<board[c]<<endl;
+                    cout<<"--> "<<a<<" "<<b<<" "<<c<<endl;
                     return true;
                 }
             }
@@ -169,6 +179,6 @@ int main(){
         game.update(board);
     }
 
-    cout<<"It's a draw -_-"<<endl;
+    cout<<"It's a draw -_-"<<endl<<endl;
     return 0;
 }
