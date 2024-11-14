@@ -150,11 +150,13 @@ int main(){
 
     string controls[2] = {"Simple ", "Nerdy"};
     int control_index=0;
-    cout<<"==> Select Control Type: 1 for Simple (1-9), 2 for Nerdy (row-column input like 00, 11, etc): ";
+    system("cls");
+    cout<<"==> Select Control Type: \n\n 1 for Simple (1-9) \n 2 for Nerdy (row-column input like 00, 11, etc) \n\n=> ";
     cin>>control_index;
     while(control_index!=1 && control_index!=2){
-        cerr<<"Not a valid input"<<endl;
-        cout<<"==> Select Control Type: 1 for Simple (1-9), 2 for Nerdy (row-column input like 00, 11, etc): ";
+        system("cls");
+        cerr<<"Not a valid input"<<endl<<endl;
+        cout<<"==> Select Control Type: \n\n 1 for Simple (1-9) \n 2 for Nerdy (row-column input like 00, 11, etc) \n\n=> ";
         cin>>control_index;
     }
 
@@ -212,7 +214,8 @@ int main(){
             if(game.check_win('O',board)){
                 cout<<"Player 1 Wins!!"<<endl<<endl;
                 game.update(board,control_index);
-                return 0;
+                break;
+                system("pause");
             }
 
 
@@ -238,7 +241,8 @@ int main(){
             if(game.check_win('X',board)){
                 cout<<"Player 2 Wins!!"<<endl<<endl;
                 game.update(board,control_index);
-                return 0;
+                break;
+                system("pause");
             }
             
         }
@@ -247,5 +251,6 @@ int main(){
     }
 
     cout<<"It's a draw -_-"<<endl<<endl;
-    return 0;
+    system("pause");
+    
 }
