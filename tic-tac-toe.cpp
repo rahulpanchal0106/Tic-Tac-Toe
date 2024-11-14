@@ -147,6 +147,7 @@ int main(){
     int total_moves=9;
     int used_moves=0;
     int p1_move, p2_move;
+    bool someone_won=false;
 
     string controls[2] = {"Simple ", "Nerdy"};
     int control_index=0;
@@ -189,7 +190,7 @@ int main(){
         game.init(board);
     }
 
-    for(int i=0; i<9; i++){
+    for(int i=0; i<9 && !someone_won; i++){
         if((i+1)%2!=0){
 
             //p1's turn
@@ -214,8 +215,10 @@ int main(){
             if(game.check_win('O',board)){
                 cout<<"Player 1 Wins!!"<<endl<<endl;
                 game.update(board,control_index);
-                break;
+                someone_won=true;
                 system("pause");
+                return 0;
+                break;
             }
 
 
@@ -241,8 +244,10 @@ int main(){
             if(game.check_win('X',board)){
                 cout<<"Player 2 Wins!!"<<endl<<endl;
                 game.update(board,control_index);
-                break;
+                someone_won=true;
                 system("pause");
+                return 0;
+                break;
             }
             
         }
